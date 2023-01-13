@@ -1,0 +1,32 @@
+//login.proto
+
+syntax = "proto3";
+
+
+service Toy {
+
+  rpc Login (Member) returns (Reply) {}
+
+  rpc Calcualte(MulNum) returns (stream Result){}
+
+}
+
+
+message Member{
+  string id=1;
+  string pw=2;
+}
+
+message Reply{
+  bool key = 1;
+  Member log=2;
+}
+
+message MulNum{
+	int32 num=1;
+}
+
+message Result{
+	string exp=1;
+	int32 solution=2;
+}

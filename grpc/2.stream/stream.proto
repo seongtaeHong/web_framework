@@ -1,0 +1,51 @@
+//route_guide.proto
+
+syntax = "proto3";
+
+package steam;
+
+
+service RouteGuide {
+  
+  //unary
+  rpc GetFeature(Point) returns (Feature) {}
+
+  //서버 스트림
+  rpc ListFeatures(Rectangle) returns (stream Feature) {}
+
+  //클라이언트 스트림
+  rpc RecordRoute(stream Point) returns (RouteSummary) {}
+
+  //양방향 스트림
+  rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+}
+
+
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+message Rectangle {
+  Point lo = 1;
+  Point hi = 2;
+}
+
+message Feature {
+  string name = 1;
+  Point location = 2;
+}
+
+
+message RouteNote {
+  Point location = 1;
+  string message = 2;
+}
+
+message RouteSummary {
+  int32 point_count = 1;
+  int32 feature_count = 2;
+  int32 distance = 3;
+  int32 elapsed_time = 4;
+}
+
